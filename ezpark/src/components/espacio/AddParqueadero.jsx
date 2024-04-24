@@ -1,48 +1,50 @@
 import React, { useState } from "react";
+import { addParqueadero } from "../utils/ApiFunctions";
 
 const AddParqueadero = () => {
     const [newParqueadero, setNewParqueadero] = useState({
         idAdministrador: "",
         nombre: ""
-    });
+    })
 
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
+    
+
     const handleParqueaderoInputChange = (e) => {
-        const { name, value } = e.target;
+        const name = e.target.name;
+        let value = e.target.value;
 
         setNewParqueadero({ ...newParqueadero, [name]: value });
-    };
+    }
 
-    const handleSubmit = () => {
+    const handleIdAdministradorInputChange = (e) => {
+        const name = e.target.name;
+        let value = e.target.value;
+
+        setNewParqueadero({ ...newParqueadero, [name]: value });
+    }
+
+    const handleSubmit = async (e) => {
         
-        fetch('http://localhost:9192/parqueaderos/add/new-parqueadero', { //CAMBIAR LA GRAN PUTA RUTA
-            method: 'POST',
-            mode: "no-cors",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newParqueadero),
-        })
-        .then(response => response.json())
-        .then(data => {
-            
-            if (data.success) {
-                setSuccessMessage("¡Parqueadero agregado exitosamente!");
-                setNewParqueadero({ idAdministrador: "", nombre: "" });
-            } else {
-                setErrorMessage("Error al agregar el parqueadero. Inténtalo de nuevo.");
-            }
-        })
-        .catch(error => {
-            console.error('Error al agregar el parqueadero:', error);
-            setErrorMessage("Error al agregar el parqueadero. Inténtalo ooooo de nuevo.");
-        });
-        setTimeout(() => {
-            setSuccessMessage("")
-            setErrorMessage("")
-        }, 3000)
+        e.preventDefault()
+        try {
+			const success = await addParqueadero(newParqueadero.idAdministrador, newParqueadero.nombre)
+			if (success !== undefined) {
+				setSuccessMessage("Un nuevo parqueadero ha sido añadido!")
+				setNewParqueadero({idAdministrador: "", nombre: "" })
+				setErrorMessage("")
+			} else {
+				setErrorMessage("Error adding new room")
+			}
+		} catch (error) {
+			setErrorMessage(error.message)
+		}
+		setTimeout(() => {
+			setSuccessMessage("")
+			setErrorMessage("")
+		}, 3000)
     }
 
     return (
@@ -59,7 +61,7 @@ const AddParqueadero = () => {
                         id="idAdministrador"
                         name="idAdministrador"
                         value={newParqueadero.idAdministrador}
-                        onChange={handleParqueaderoInputChange}
+                        onChange={handleIdAdministradorInputChange}
                     />
                 </div>
                 <div>
@@ -75,7 +77,7 @@ const AddParqueadero = () => {
                 <button type="button" onClick={handleSubmit}>Agregar Parqueadero</button>
             </form>
         </div>
-    );
-};
+    )
+}
 
 export default AddParqueadero;

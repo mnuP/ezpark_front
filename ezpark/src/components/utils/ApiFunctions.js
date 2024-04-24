@@ -4,12 +4,21 @@ export const api = axios.create({
     baseURL :"http://localhost:9192"
 })
 
-export async function AddParqueadero(idAdministrador, nombre) {
+export const getHeader = () => {
+	const token = localStorage.getItem("token")
+	return {
+		Authorization: `Bearer ${token}`,
+		"Content-Type": "application/json"
+	}
+}
+
+export async function addParqueadero(idAdministrador, nombre) {
     const formData = new FormData()
     formData.append("idAdministrador", idAdministrador)
     formData.append("nombre", nombre)
 
-    const response = await api.post("/parqueaderos/add/new-parqueadero", FormData)
+    const response = await api.post("/parqueaderos/add/new-parqueadero", formData)
+
     if(response.status === 201) {
         return true
     }else{
