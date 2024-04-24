@@ -17,8 +17,9 @@ const AddParqueadero = () => {
 
     const handleSubmit = () => {
         
-        fetch('/ruta/al/backend', { //CAMBIAR LA GRAN PUTA RUTA
+        fetch('http://localhost:9192/parqueaderos/add/new-parqueadero', { //CAMBIAR LA GRAN PUTA RUTA
             method: 'POST',
+            mode: "no-cors",
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -36,13 +37,13 @@ const AddParqueadero = () => {
         })
         .catch(error => {
             console.error('Error al agregar el parqueadero:', error);
-            setErrorMessage("Error al agregar el parqueadero. Inténtalo de nuevo.");
+            setErrorMessage("Error al agregar el parqueadero. Inténtalo ooooo de nuevo.");
         });
         setTimeout(() => {
             setSuccessMessage("")
             setErrorMessage("")
         }, 3000)
-    };
+    }
 
     return (
         <div>
