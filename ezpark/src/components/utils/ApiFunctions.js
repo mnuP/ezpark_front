@@ -1,59 +1,168 @@
 import axios from "axios";
 
 export const api = axios.create({
-    baseURL: "http://localhost:9192"
+	baseURL: "http://localhost:9192"
 });
 
 export const getHeader = () => {
-    const token = localStorage.getItem("token");
-    return {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
-    };
+	const token = localStorage.getItem("token");
+	return {
+		Authorization: `Bearer ${token}`,
+		"Content-Type": "application/json"
+	};
 };
 
-export async function addParqueadero(idAdministrador, nombre) {
-    const formData = new FormData();
-    formData.append("idAdministrador", idAdministrador);
-    formData.append("nombre", nombre);
-
-    const response = await api.post("/parqueaderos/add/new-parqueadero", formData);
-
-    if (response.status === 201) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-export async function updateParqueadero(idParqueadero, idAdministrador, nombre) {
-    const response = await api.put(`/parqueaderos/update/${idParqueadero}`, {
-        idAdministrador,
-        nombre
-    });
-
-    if (response.status === 200) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-export async function deleteParqueadero(idParqueadero) {
-    const response = await api.delete(`/parqueaderos/delete/parqueadero/${idParqueadero}`);
-
-    if (response.status === 204) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-export async function getAllParqueaderos() {
-    try {
-        const response = await api.get("/parqueaderos/all-parqueaderos");
-        return response.data;
-    } catch (error) {
-        throw new Error("Error obteniendo la lista de parqueaderos");
-    }
-}
+export const registerUser = async (userData) => {
+	try {
+		const response = await axios.post(`${BASE_URL}/auth/register-user`, userData);
+	  		return response.data;
+		} catch (error) {
+	  		throw error.response.data;
+	}
+};
+  
+export const loginUser = async (loginData) => {
+	try {
+	  	const response = await axios.post(`${BASE_URL}/auth/login`, loginData);
+	  	return response.data;
+	} catch (error) {
+	  	throw error.response.data;
+	}
+};
+  
+export const getUserByEmail = async (email) => {
+	try {
+	  	const response = await axios.get(`${BASE_URL}/usuarios/${email}`);
+	  	return response.data;
+	} catch (error) {
+	  	throw error.response.data;
+	}
+};
+  
+export const deleteUserByEmail = async (email) => {
+	try {
+	  	const response = await axios.delete(`${BASE_URL}/usuarios/eliminar/${email}`);
+	  	return response.data;
+	} catch (error) {
+	  	throw error.response.data;
+	}
+};
+  
+// Funciones relacionadas con roles
+export const getAllRoles = async () => {
+	try {
+	  	const response = await axios.get(`${BASE_URL}/roles/todos-los-roles`);
+	  	return response.data;
+	} catch (error) {
+	  	throw error.response.data;
+	}
+};
+  
+export const createRole = async (roleData) => {
+	try {
+	  	const response = await axios.post(`${BASE_URL}/roles/crear-nuevo-rol`, roleData);
+	  	return response.data;
+	} catch (error) {
+	  	throw error.response.data;
+	}
+};
+  
+// Funciones relacionadas con parqueaderos
+export const addNewParqueadero = async (parqueaderoData) => {
+	try {
+	  	const response = await axios.post(`${BASE_URL}/parqueaderos/add/new-parqueadero`, parqueaderoData);
+	  	return response.data;
+	} catch (error) {
+	  	throw error.response.data;
+	}
+};
+  
+export const getAllParqueaderos = async () => {
+	try {
+	  	const response = await axios.get(`${BASE_URL}/parqueaderos/all-parqueaderos`);
+	  	return response.data;
+	} catch (error) {
+	  	throw error.response.data;
+	}
+};
+  
+export const deleteParqueadero = async (parqueaderoId) => {
+	try {
+	  	await axios.delete(`${BASE_URL}/parqueaderos/delete/parqueadero/${parqueaderoId}`);
+	} catch (error) {
+	  	throw error.response.data;
+	}
+};
+  
+export const updateParqueadero = async (idParqueadero, parqueaderoData) => {
+	try {
+		const response = await axios.put(`${BASE_URL}/parqueaderos/update/${idParqueadero}`, parqueaderoData);
+		return response.data;
+	} catch (error) {
+		throw error.response.data;
+	}
+};
+  
+export const getParqueaderoById = async (idParqueadero) => {
+	try {
+	  	const response = await axios.get(`${BASE_URL}/parqueaderos/parqueadero/${idParqueadero}`);
+	  	return response.data;
+	} catch (error) {
+	  	throw error.response.data;
+	}
+};
+  
+// Funciones relacionadas con espacios
+export const addNewEspacio = async (espacioData) => {
+	try {
+	  	const response = await axios.post(`${BASE_URL}/espacios/add/new-espacio`, espacioData);
+	  	return response.data;
+	} catch (error) {
+	  	throw error.response.data;
+	}
+};
+  
+export const getAllEspacios = async () => {
+	try {
+	  	const response = await axios.get(`${BASE_URL}/espacios/all-espacios`);
+	  	return response.data;
+	} catch (error) {
+	  	throw error.response.data;
+	}
+};
+  
+export const getEspacioById = async (idEspacio) => {
+	try {
+	  	const response = await axios.get(`${BASE_URL}/espacios/espacio/${idEspacio}`);
+	  	return response.data;
+	} catch (error) {
+	  	throw error.response.data;
+	}
+};
+  
+// Funciones relacionadas con reservas
+export const getAllReservas = async () => {
+	try {
+	  	const response = await axios.get(`${BASE_URL}/reservas/all-reservas`);
+	  	return response.data;
+	} catch (error) {
+	  	throw error.response.data;
+	}
+};
+  
+export const saveReserva = async (idEspacio, reservaData) => {
+	try {
+	  	const response = await axios.post(`${BASE_URL}/reservas/espacio/${idEspacio}/reserva`, reservaData);
+	  	return response.data;
+	} catch (error) {
+	  	throw error.response.data;
+	}
+};
+  
+export const cancelReserva = async (idReserva) => {
+	try {
+	  	await axios.delete(`${BASE_URL}/reservas/reserva/${idReserva}/delete`);
+	} catch (error) {
+	  	throw error.response.data;
+	}
+};
