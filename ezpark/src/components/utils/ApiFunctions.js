@@ -14,7 +14,8 @@ export const getHeader = () => {
 
 export const registerUser = async (userData) => {
 	try {
-		const response = await axios.post(`${BASE_URL}/auth/register-user`, userData);
+		console.log(userData)
+		const response = await axios.post(`http://localhost:9192/auth/register-user`, userData);
 	  		return response.data;
 		} catch (error) {
 	  		throw error.response.data;
@@ -23,11 +24,25 @@ export const registerUser = async (userData) => {
   
 export const loginUser = async (loginData) => {
 	try {
-	  	const response = await axios.post(`${BASE_URL}/auth/login`, loginData);
+		console.log(loginData)
+	  	const response = await axios.post(`http://localhost:9192/auth/login`, loginData);
+		console.log(response.data);
 	  	return response.data;
 	} catch (error) {
-	  	throw error.response.data;
-	}
+        if (error.response) {
+            // Server responded with a status code outside of 2xx
+            console.error('Server Error:', error.response.data);
+            throw new Error('Server Error');
+        } else if (error.request) {
+            // The request was made but no response was received
+            console.error('No response received:', error.request);
+            throw new Error('No response received');
+        } else {
+            // Something else happened while setting up the request
+            console.error('Request setup error:', error.message);
+            throw new Error('Request setup error');
+        }
+    }
 };
   
 export const getUserByEmail = async (email) => {
@@ -165,4 +180,25 @@ export const cancelReserva = async (idReserva) => {
 	} catch (error) {
 	  	throw error.response.data;
 	}
+};
+
+export const getReservaById = async (idReserva) => {
+	try {
+	  	const response = await axios.get(`http://localhost:9192/reservas/id/${idReserva}`);
+	  	return response.data;
+	} catch (error) {
+        if (error.response) {
+            // Server responded with a status code outside of 2xx
+            console.error('Server Error:', error.response.data);
+            throw new Error('Server Error');
+        } else if (error.request) {
+            // The request was made but no response was received
+            console.error('No response received:', error.request);
+            throw new Error('No response received');
+        } else {
+            // Something else happened while setting up the request
+            console.error('Request setup error:', error.message);
+            throw new Error('Request setup error');
+        }
+    }
 };

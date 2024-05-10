@@ -7,7 +7,7 @@ const Login = () => {
 	const [errorMessage, setErrorMessage] = useState("")
 	const [login, setLogin] = useState({
 		email: "",
-		password: ""
+		contraseña: ""
 	})
 
 	const navigate = useNavigate()
@@ -27,7 +27,7 @@ const Login = () => {
 			auth.handleLogin(token)
 			navigate(redirectUrl, { replace: true })
 		} else {
-			setErrorMessage("Invalid username or password. Please try again.")
+			setErrorMessage("Invalid username or contraseña. Please try again.")
 		}
 		setTimeout(() => {
 			setErrorMessage("")
@@ -56,16 +56,16 @@ const Login = () => {
 				</div>
 
 				<div className="row mb-3">
-					<label htmlFor="password" className="col-sm-2 col-form-label">
+					<label htmlFor="contraseña" className="col-sm-2 col-form-label">
 						Contraseña
 					</label>
 					<div>
 						<input
-							id="password"
-							name="password"
-							type="password"
+							id="contraseña"
+							name="contraseña"
+							type="contraseña"
 							className="form-control"
-							value={login.password}
+							value={login.contraseña}
 							onChange={handleInputChange}
 						/>
 					</div>

@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 
 const Registration = () => {
     const [registration, setRegistration] = useState({
-        name: "",
+        nombre: "",
+        apellido: "",
         email: "",
-        password: ""
+        contraseña: ""
     });
 
     const [errorMessage, setErrorMessage] = useState("");
@@ -22,7 +23,7 @@ const Registration = () => {
             const result = await registerUser(registration);
             setSuccessMessage(result);
             setErrorMessage("");
-            setRegistration({ name: "", email: "", password: "" });
+            setRegistration({ nombre: "", apellido: "", email: "", contraseña: "" });
         } catch (error) {
             setSuccessMessage("");
             setErrorMessage(`Error al registrar usuario: ${error.message}`);
@@ -41,16 +42,32 @@ const Registration = () => {
             <h2>Registro</h2>
             <form onSubmit={handleRegistration}>
                 <div className="mb-3 row">
-                    <label htmlFor="name" className="col-sm-2 col-form-label">
+                    <label htmlFor="nombre" className="col-sm-2 col-form-label">
                         Nombre
                     </label>
                     <div className="col-sm-10">
                         <input
-                            id="name"
-                            name="name"
+                            id="nombre"
+                            name="nombre"
                             type="text"
                             className="form-control"
-                            value={registration.name}
+                            value={registration.nombre}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                </div>
+
+                <div className="mb-3 row">
+                    <label htmlFor="apellido" className="col-sm-2 col-form-label">
+                        Apellido
+                    </label>
+                    <div className="col-sm-10">
+                        <input
+                            id="apellido"
+                            name="apellido"
+                            type="text"
+                            className="form-control"
+                            value={registration.apellido}
                             onChange={handleInputChange}
                         />
                     </div>
@@ -73,16 +90,16 @@ const Registration = () => {
                 </div>
 
                 <div className="mb-3 row">
-                    <label htmlFor="password" className="col-sm-2 col-form-label">
+                    <label htmlFor="contraseña" className="col-sm-2 col-form-label">
                         Contraseña
                     </label>
                     <div className="col-sm-10">
                         <input
-                            type="password"
+                            type="contraseña"
                             className="form-control"
-                            id="password"
-                            name="password"
-                            value={registration.password}
+                            id="contraseña"
+                            name="contraseña"
+                            value={registration.contraseña}
                             onChange={handleInputChange}
                         />
                     </div>
