@@ -4,7 +4,14 @@ import { useNavigate } from "react-router-dom"
 import moment from "moment"
 
 const Profile = () => {
-	const [user, setUser] = useState(null)
+	const [user, setUser] = useState({
+		id:"",
+		nombre:"",
+        apellido:"",
+        email:"",
+        roles: [{id:"",name:""}]
+	})
+       
 	const [bookings, setBookings] = useState([])
 	const [message, setMessage] = useState("")
 	const [errorMessage, setErrorMessage] = useState("")
@@ -25,7 +32,7 @@ const Profile = () => {
 		}
 
 		fetchUser()
-	}, [userId, token])
+	}, [userId])
 
 	useEffect(() => {
 		const fetchBookings = async () => {
@@ -39,24 +46,26 @@ const Profile = () => {
 		}
 
 		fetchBookings()
-	}, [userId, token])
+	}, [userId])
 
 	const handleDeleteAccount = async () => {
 		const confirmed = window.confirm(
 			"Are you sure you want to delete your account? This action cannot be undone."
 		)
 		if (confirmed) {
-			try {
-				await deleteUserByEmail(userId, token)
+			await deleteUser(userId)
+			.then((response)=>{
+				setMessage(response.data)
 				localStorage.removeItem("token")
 				localStorage.removeItem("userId")
 				localStorage.removeItem("userRole")
 				navigate("/")
 				window.location.reload()
-			} catch (error) {
+			})
+			.catch((error) => {
 				setErrorMessage("Error deleting user account.")
 				console.error(error)
-			}
+			})
 		}
 	}
 

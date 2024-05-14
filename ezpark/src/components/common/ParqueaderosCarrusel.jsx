@@ -25,12 +25,12 @@ const ParqueaderosCarrusel = () => {
         return <div className="mt-5">Cargando parqueaderos....</div>;
     }
     if (errorMessage) {
-        return <div className=" text-danger mb-5 mt-5">Error : {errorMessage}</div>;
+        return <div className="text-danger mb-5 mt-5">Error: {errorMessage}</div>;
     }
 
     return (
         <section className="bg-light mb-5 mt-5 shadow">
-            <Link to={"/browse-all-parqueaderos"} className="park-color text-center">
+            <Link to={"/browse-all-parking-spots"} className="park-color text-center d-block mb-3">
                 Ver todos los parqueaderos
             </Link>
 
@@ -42,16 +42,14 @@ const ParqueaderosCarrusel = () => {
                                 {parqueaderos.slice(index * 4, index * 4 + 4).map((parqueadero) => (
                                     <Col key={parqueadero.id} className="mb-4" xs={12} md={6} lg={3}>
                                         <Card>
-                                            <Link to={`/book-parqueadero/${parqueadero.id}`}>
-                                                <Card.Body>
-                                                    <Card.Title className="park-color">{parqueadero.nombre}</Card.Title>
-                                                    <div className="flex-shrink-0">
-                                                        <Link to={`/book-parqueadero/${parqueadero.id}`} className="btn btn-park btn-sm">
-                                                            Reservar ahora
-                                                        </Link>
-                                                    </div>
-                                                </Card.Body>
-                                            </Link>
+                                            <Card.Body>
+                                                <Card.Title className="park-color">{parqueadero.nombre}</Card.Title>
+                                                <div className="flex-shrink-0">
+                                                    <Link to={`/book-parqueadero/${parqueadero.id}`} className="btn btn-park btn-sm">
+                                                        Reservar ahora
+                                                    </Link>
+                                                </div>
+                                            </Card.Body>
                                         </Card>
                                     </Col>
                                 ))}

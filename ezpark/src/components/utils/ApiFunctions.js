@@ -1,202 +1,245 @@
 import axios from "axios";
 
+// Create an Axios instance with the base URL
 export const api = axios.create({
-	baseURL: "http://localhost:9192"
+    baseURL: "http://localhost:9192",
 });
 
+// Function to get the headers with the JWT token
 export const getHeader = () => {
-	const token = localStorage.getItem("token");
-	return {
-		Authorization: `Bearer ${token}`,
-		"Content-Type": "application/json"
-	};
+    const token = localStorage.getItem("token");
+    return {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+    };
 };
 
+// User registration
 export const registerUser = async (userData) => {
-	try {
-		console.log(userData)
-		const response = await axios.post(`http://localhost:9192/auth/register-user`, userData);
-	  		return response.data;
-		} catch (error) {
-	  		throw error.response.data;
-	}
+    try {
+        console.log(userData);
+        const response = await api.post(`http://localhost:9192/auth/register-user`, userData);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
 };
-  
+
+// User login
 export const loginUser = async (loginData) => {
-	try {
-		console.log(loginData)
-	  	const response = await axios.post(`http://localhost:9192/auth/login`, loginData);
-		console.log(response.data);
-	  	return response.data;
-	} catch (error) {
+    try {
+        console.log(loginData);
+        const response = await api.post(`http://localhost:9192/auth/login`, loginData);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
         if (error.response) {
-            // Server responded with a status code outside of 2xx
             console.error('Server Error:', error.response.data);
             throw new Error('Server Error');
         } else if (error.request) {
-            // The request was made but no response was received
             console.error('No response received:', error.request);
             throw new Error('No response received');
         } else {
-            // Something else happened while setting up the request
             console.error('Request setup error:', error.message);
             throw new Error('Request setup error');
         }
     }
 };
-  
+
+// Get user by email
 export const getUserByEmail = async (email) => {
-	try {
-	  	const response = await axios.get(`${BASE_URL}/usuarios/${email}`);
-	  	return response.data;
-	} catch (error) {
-	  	throw error.response.data;
-	}
+    try {
+        const response = await api.get(`http://localhost:9192/usuarios/${email}`, {
+            headers: getHeader()
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
 };
-  
+
+// Delete user by email
 export const deleteUserByEmail = async (email) => {
-	try {
-	  	const response = await axios.delete(`${BASE_URL}/usuarios/eliminar/${email}`);
-	  	return response.data;
-	} catch (error) {
-	  	throw error.response.data;
-	}
+    try {
+        const response = await api.delete(`http://localhost:9192/usuarios/eliminar/${email}`, {
+            headers: getHeader()
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
 };
-  
-// Funciones relacionadas con roles
+
+// Role-related functions
 export const getAllRoles = async () => {
-	try {
-	  	const response = await axios.get(`${BASE_URL}/roles/todos-los-roles`);
-	  	return response.data;
-	} catch (error) {
-	  	throw error.response.data;
-	}
+    try {
+        const response = await api.get(`http://localhost:9192/roles/todos-los-roles`, {
+            headers: getHeader()
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
 };
-  
+
 export const createRole = async (roleData) => {
-	try {
-	  	const response = await axios.post(`${BASE_URL}/roles/crear-nuevo-rol`, roleData);
-	  	return response.data;
-	} catch (error) {
-	  	throw error.response.data;
-	}
+    try {
+        const response = await api.post(`http://localhost:9192/roles/crear-nuevo-rol`, roleData, {
+            headers: getHeader()
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
 };
-  
-// Funciones relacionadas con parqueaderos
-export const addNewParqueadero = async (parqueaderoData) => {
-	try {
-	  	const response = await axios.post(`${BASE_URL}/parqueaderos/add/new-parqueadero`, parqueaderoData);
-	  	return response.data;
-	} catch (error) {
-	  	throw error.response.data;
-	}
-};
-  
+
+// Parking-related functions
+export async function addNewParqueadero(idAdministrador, nombre) {
+    const formData = new FormData();
+    formData.append("idAdministrador", idAdministrador);
+    formData.append("nombre", nombre);
+    
+    try {
+        const response = await api.post("http://localhost:9192/parqueaderos/add/new-parqueadero", formData, {
+            headers: getHeader()
+        });
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            throw new Error("Error al agregar el parqueadero");
+        }
+    } catch (error) {
+        throw new Error("Error de red: " + error.message);
+    }
+}
+
 export const getAllParqueaderos = async () => {
-	try {
-	  	const response = await axios.get(`${BASE_URL}/parqueaderos/all-parqueaderos`);
-	  	return response.data;
-	} catch (error) {
-	  	throw error.response.data;
-	}
+    try {
+        const response = await api.get(`http://localhost:9192/parqueaderos/all-parqueaderos`, {
+            headers: getHeader()
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
 };
-  
+
 export const deleteParqueadero = async (parqueaderoId) => {
-	try {
-	  	await axios.delete(`${BASE_URL}/parqueaderos/delete/parqueadero/${parqueaderoId}`);
-	} catch (error) {
-	  	throw error.response.data;
-	}
+    try {
+        await api.delete(`http://localhost:9192/parqueaderos/delete/parqueadero/${parqueaderoId}`, {
+            headers: getHeader()
+        });
+    } catch (error) {
+        throw error.response.data;
+    }
 };
-  
-export const updateParqueadero = async (idParqueadero, parqueaderoData) => {
-	try {
-		const response = await axios.put(`${BASE_URL}/parqueaderos/update/${idParqueadero}`, parqueaderoData);
-		return response.data;
-	} catch (error) {
-		throw error.response.data;
-	}
-};
-  
+
+export async function updateParqueadero(idAdministrador, nombre, idParqueadero) {
+    const formData = new FormData();
+    formData.append("idAdministrador", idAdministrador);
+    formData.append("nombre", nombre);
+    try {
+        const response = await api.put(`http://localhost:9192/parqueaderos/update/${idParqueadero}`, formData, {
+            headers: getHeader()
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+}
+
 export const getParqueaderoById = async (idParqueadero) => {
-	try {
-	  	const response = await axios.get(`${BASE_URL}/parqueaderos/parqueadero/${idParqueadero}`);
-	  	return response.data;
-	} catch (error) {
-	  	throw error.response.data;
-	}
+    try {
+        const response = await api.get(`http://localhost:9192/parqueaderos/parqueadero/${idParqueadero}`, {
+            headers: getHeader()
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
 };
-  
-// Funciones relacionadas con espacios
+
+// Space-related functions
 export const addNewEspacio = async (espacioData) => {
-	try {
-	  	const response = await axios.post(`${BASE_URL}/espacios/add/new-espacio`, espacioData);
-	  	return response.data;
-	} catch (error) {
-	  	throw error.response.data;
-	}
+    try {
+        const response = await api.post(`http://localhost:9192/espacios/add/new-espacio`, espacioData, {
+            headers: getHeader()
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
 };
-  
+
 export const getAllEspacios = async () => {
-	try {
-	  	const response = await axios.get(`${BASE_URL}/espacios/all-espacios`);
-	  	return response.data;
-	} catch (error) {
-	  	throw error.response.data;
-	}
+    try {
+        const response = await api.get(`http://localhost:9192/espacios/all-espacios`, {
+            headers: getHeader()
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
 };
-  
+
 export const getEspacioById = async (idEspacio) => {
-	try {
-	  	const response = await axios.get(`${BASE_URL}/espacios/espacio/${idEspacio}`);
-	  	return response.data;
-	} catch (error) {
-	  	throw error.response.data;
-	}
+    try {
+        const response = await api.get(`http://localhost:9192/espacios/espacio/${idEspacio}`, {
+            headers: getHeader()
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
 };
-  
-// Funciones relacionadas con reservas
+
+// Reservation-related functions
 export const getAllReservas = async () => {
-	try {
-	  	const response = await axios.get(`${BASE_URL}/reservas/all-reservas`);
-	  	return response.data;
-	} catch (error) {
-	  	throw error.response.data;
-	}
+    try {
+        const response = await api.get(`http://localhost:9192/reservas/all-reservas`, {
+            headers: getHeader()
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
 };
-  
+
 export const saveReserva = async (idEspacio, reservaData) => {
-	try {
-	  	const response = await axios.post(`${BASE_URL}/reservas/espacio/${idEspacio}/reserva`, reservaData);
-	  	return response.data;
-	} catch (error) {
-	  	throw error.response.data;
-	}
+    try {
+        const response = await api.post(`http://localhost:9192/reservas/espacio/${idEspacio}/reserva`, reservaData, {
+            headers: getHeader()
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
 };
-  
+
 export const cancelReserva = async (idReserva) => {
-	try {
-	  	await axios.delete(`${BASE_URL}/reservas/reserva/${idReserva}/delete`);
-	} catch (error) {
-	  	throw error.response.data;
-	}
+    try {
+        await api.delete(`http://localhost:9192/reservas/reserva/${idReserva}/delete`, {
+            headers: getHeader()
+        });
+    } catch (error) {
+        throw error.response.data;
+    }
 };
 
 export const getReservaById = async (idReserva) => {
-	try {
-	  	const response = await axios.get(`http://localhost:9192/reservas/id/${idReserva}`);
-	  	return response.data;
-	} catch (error) {
+    try {
+        const response = await api.get(`http://localhost:9192/reservas/id/${idReserva}`, {
+            headers: getHeader()
+        });
+        return response.data;
+    } catch (error) {
         if (error.response) {
-            // Server responded with a status code outside of 2xx
             console.error('Server Error:', error.response.data);
             throw new Error('Server Error');
         } else if (error.request) {
-            // The request was made but no response was received
             console.error('No response received:', error.request);
             throw new Error('No response received');
         } else {
-            // Something else happened while setting up the request
             console.error('Request setup error:', error.message);
             throw new Error('Request setup error');
         }

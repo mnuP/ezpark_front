@@ -12,9 +12,9 @@ const ExistingParqueaderos = () => {
     const [parqueaderosPerPage] = useState(8);
     const [isLoading, setIsLoading] = useState(false);
     const [filteredParqueaderos, setFilteredParqueaderos] = useState([]);
-    const [selectedParqueaderoType, setSelectedParqueaderoType] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
+    const [filter, setFilter] = useState("");
 
     useEffect(() => {
         fetchParqueaderos();
@@ -33,14 +33,12 @@ const ExistingParqueaderos = () => {
     };
 
     useEffect(() => {
-        if (selectedParqueaderoType === "") {
-            setFilteredParqueaderos(parqueaderos);
-        } else {
-            const filteredParqueaderos = parqueaderos.filter((parqueadero) => parqueadero.tipoParqueadero === selectedParqueaderoType);
-            setFilteredParqueaderos(filteredParqueaderos);
-        }
+        const filteredParqueaderos = parqueaderos.filter((parqueadero) =>
+            parqueadero.nombre.toLowerCase().includes(filter.toLowerCase())
+        );
+        setFilteredParqueaderos(filteredParqueaderos);
         setCurrentPage(1);
-    }, [parqueaderos, selectedParqueaderoType]);
+    }, [parqueaderos, filter]);
 
     const handlePaginationClick = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -101,27 +99,27 @@ const ExistingParqueaderos = () => {
                             <thead>
                                 <tr className="text-center">
                                     <th>ID</th>
-                                    <th>Tipo de Parqueadero</th>
-                                    <th>Precio de Parqueadero</th>
+                                    <th>ID Administrador</th>
+                                    <th>Nombre</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                {currentParqueaderos.length === 0 && (
+                                    <tr>
+                                        <td colSpan="4" className="text-center">No se encontraron parqueaderos que coincidan con el filtro aplicado.</td>
+                                    </tr>
+                                )}
                                 {currentParqueaderos.map((parqueadero) => (
                                     <tr key={parqueadero.id} className="text-center">
                                         <td>{parqueadero.id}</td>
-                                        <td>{parqueadero.tipoParqueadero}</td>
-                                        <td>{parqueadero.precioParqueadero}</td>
+                                        <td>{parqueadero.idAdministrador}</td>
+                                        <td>{parqueadero.nombre}</td>
                                         <td className="gap-2">
-                                            <Link to={`/edit-parqueadero/${parqueadero.id}`} className="gap-2">
-                                                <span className="btn btn-info btn-sm">
-                                                    <FaEye />
-                                                </span>
-                                                <span className="btn btn-warning btn-sm ml-5">
-                                                    <FaEdit />
-                                                </span>
+                                            <Link to={`/edit-parqueadero/${parqueadero.id}`} className="btn btn-info btn-sm">
+                                                <FaEdit />
                                             </Link>
-                                            <button className="btn btn-danger btn-sm ml-5" onClick={() => handleDelete(parqueadero.id)}>
+                                            <button className="btn btn-danger btn-sm ml-2" onClick={() => handleDelete(parqueadero.id)}>
                                                 <FaTrashAlt />
                                             </button>
                                         </td>

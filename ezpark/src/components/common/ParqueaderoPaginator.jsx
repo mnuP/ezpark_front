@@ -8,9 +8,8 @@ const ParqueaderoPaginator = ({ currentPage, totalPages, onPageChange }) => {
                 {pageNumbers.map((pageNumber) => (
                     <li
                         key={pageNumber}
-                        className={`page-item ${currentPage === pageNumber ? "active" : ""}`}
-                    >
-                        <button onClick={() => onPageChange(pageNumber)} className="page-link">
+                        className={`page-item ${currentPage === pageNumber ? "active" : ""}`}>
+                        <button className="page-link" onClick={() => onPageChange(pageNumber)}>
                             {pageNumber}
                         </button>
                     </li>

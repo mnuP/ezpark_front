@@ -8,7 +8,9 @@ const ParqueaderoSearch = ({ onSearch }) => {
     };
 
     const handleSearch = () => {
-        onSearch(searchTerm);
+        if (onSearch && typeof onSearch === "function") {
+            onSearch(searchTerm);
+        }
     };
 
     return (

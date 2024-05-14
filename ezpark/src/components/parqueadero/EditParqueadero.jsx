@@ -1,54 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { getEspacioById, updateParqueadero } from "../utils/ApiFunctions";
 import { Link, useParams } from "react-router-dom";
+import { getParqueaderoById, updateParqueadero } from "../utils/ApiFunctions";
 
 const EditParqueadero = () => {
-    const [espacio, setEspacio] = useState({
-        photo: "",
-        tipoEspacio: "",
-        precioEspacio: ""
+    const { parqueaderoId } = useParams();
+    const [parqueadero, setParqueadero] = useState({
+        idAdministrador: "",
+        nombre: ""
     });
-
-    const [imagePreview, setImagePreview] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-    const { espacioId } = useParams();
-
-    const handleImageChange = (e) => {
-        const selectedImage = e.target.files[0];
-        setEspacio({ ...espacio, photo: selectedImage });
-        setImagePreview(URL.createObjectURL(selectedImage));
-    };
-
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setEspacio({ ...espacio, [name]: value });
-    };
 
     useEffect(() => {
-        const fetchEspacio = async () => {
+        const fetchParqueaderoData = async () => {
             try {
-                const espacioData = await getEspacioById(espacioId);
-                setEspacio(espacioData);
-                setImagePreview(espacioData.photo);
+                const parqueaderoData = await getParqueaderoById(parqueaderoId);
+                setParqueadero(parqueaderoData);
             } catch (error) {
                 console.error(error);
             }
         };
 
-        fetchEspacio();
-    }, [espacioId]);
+        fetchParqueaderoData();
+    }, [parqueaderoId]);
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setParqueadero({ ...parqueadero, [name]: value });
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
-            const response = await updateParqueadero(espacioId, espacio);
-            if (response.status === 200) {
-                setSuccessMessage("Parqueadero actualizado correctamente");
-                const updatedEspacioData = await getEspacioById(espacioId);
-                setEspacio(updatedEspacioData);
-                setImagePreview(updatedEspacioData.photo);
+            const response = await updateParqueadero(parqueadero.idAdministrador, parqueadero.nombre);
+            if (response) {
+                setSuccessMessage("Parqueadero actualizado exitosamente");
                 setErrorMessage("");
             } else {
                 setErrorMessage("Error al actualizar el parqueadero");
@@ -61,71 +47,41 @@ const EditParqueadero = () => {
 
     return (
         <div className="container mt-5 mb-5">
-            <h3 className="text-center mb-5 mt-5">Editar Espacio</h3>
+            <h3 className="text-center mb-5 mt-5">Editar Parqueadero</h3>
             <div className="row justify-content-center">
                 <div className="col-md-8 col-lg-6">
-                    {successMessage && (
-                        <div className="alert alert-success" role="alert">
-                            {successMessage}
-                        </div>
-                    )}
-                    {errorMessage && (
-                        <div className="alert alert-danger" role="alert">
-                            {errorMessage}
-                        </div>
-                    )}
+                    {successMessage && <div className="alert alert-success">{successMessage}</div>}
+                    {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
-                            <label htmlFor="tipoEspacio" className="form-label park-color">
-                                Tipo de Parqueadero
+                            <label htmlFor="idAdministrador" className="form-label">
+                                ID del Administrador
                             </label>
                             <input
                                 type="text"
                                 className="form-control"
-                                id="tipoEspacio"
-                                name="tipoEspacio"
-                                value={espacio.tipoEspacio}
+                                id="idAdministrador"
+                                name="idAdministrador"
+                                value={parqueadero.idAdministrador}
                                 onChange={handleInputChange}
                             />
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="precioEspacio" className="form-label park-color">
-                                Precio de Parqueadero
+                            <label htmlFor="nombre" className="form-label">
+                                Nombre del Parqueadero
                             </label>
                             <input
-                                type="number"
+                                type="text"
                                 className="form-control"
-                                id="precioEspacio"
-                                name="precioEspacio"
-                                value={espacio.precioEspacio}
+                                id="nombre"
+                                name="nombre"
+                                value={parqueadero.nombre}
                                 onChange={handleInputChange}
                             />
-                        </div>
-
-                        <div className="mb-3">
-                            <label htmlFor="photo" className="form-label park-color">
-                                Foto
-                            </label>
-                            <input
-                                required
-                                type="file"
-                                className="form-control"
-                                id="photo"
-                                name="photo"
-                                onChange={handleImageChange}
-                            />
-                            {imagePreview && (
-                                <img
-                                    src={`data:image/jpeg;base64,${imagePreview}`}
-                                    alt="Vista previa del espacio"
-                                    style={{ maxWidth: "400px", maxHeight: "400" }}
-                                    className="mt-3"
-                                />
-                            )}
                         </div>
                         <div className="d-grid gap-2 d-md-flex mt-2">
-                            <Link to={"/existing-espacios"} className="btn btn-outline-info ml-5">
-                                Volver
+                            <Link to={"/existing-parqueaderos"} className="btn btn-outline-info ml-5">
+                                Regresar
                             </Link>
                             <button type="submit" className="btn btn-outline-warning">
                                 Editar Parqueadero
@@ -137,4 +93,5 @@ const EditParqueadero = () => {
         </div>
     );
 };
+
 export default EditParqueadero;

@@ -14,26 +14,22 @@ const Parqueadero = () => {
     const [filteredData, setFilteredData] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setIsLoading(true);
-                const parqueaderosData = await getAllParqueaderos();
-                setData(parqueaderosData);
-                setFilteredData(parqueaderosData);
+        setIsLoading(true);
+        getAllParqueaderos()
+            .then((data) => {
+                setData(data);
+                setFilteredData(data);
                 setIsLoading(false);
-            } catch (error) {
+            })
+            .catch((error) => {
                 setError(error.message);
                 setIsLoading(false);
-            }
-        };
-
-        fetchData();
+            });
     }, []);
 
     if (isLoading) {
-        return <div>Cargando parqueaderos...</div>;
+        return <div>Loading parqueaderos...</div>;
     }
-
     if (error) {
         return <div className="text-danger">Error: {error}</div>;
     }
@@ -47,19 +43,24 @@ const Parqueadero = () => {
     const renderParqueaderos = () => {
         const startIndex = (currentPage - 1) * parqueaderosPerPage;
         const endIndex = startIndex + parqueaderosPerPage;
-        return filteredData.slice(startIndex, endIndex).map((parqueadero) => (
-            <ParqueaderoCard key={parqueadero.id} parqueadero={parqueadero} />
-        ));
+        return filteredData
+            .slice(startIndex, endIndex)
+            .map((parqueadero) => <ParqueaderoCard key={parqueadero.idParqueadero} parqueadero={parqueadero} />);
     };
 
     return (
         <Container>
-            <Row className="mb-3">
-                <Col md={6}>
+            <Row>
+                <Col md={6} className="mb-3 mb-md-0">
                     <FiltrarParqueadero data={data} setFilteredData={setFilteredData} />
                 </Col>
+
                 <Col md={6} className="d-flex align-items-center justify-content-end">
-                    <ParqueaderoPaginator currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+                    <ParqueaderoPaginator
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={handlePageChange}
+                    />
                 </Col>
             </Row>
 
@@ -67,7 +68,11 @@ const Parqueadero = () => {
 
             <Row>
                 <Col md={6} className="d-flex align-items-center justify-content-end">
-                    <ParqueaderoPaginator currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+                    <ParqueaderoPaginator
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={handlePageChange}
+                    />
                 </Col>
             </Row>
         </Container>

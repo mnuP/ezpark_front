@@ -22,9 +22,9 @@ const ParkingReservations = () => {
         }, 1000);
     }, []);
 
-    const handleReservationCancellation = async (reservationId) => {
+    const handleReservationCancellation = async (idReserva) => {
         try {
-            await cancelReserva(reservationId);
+            await cancelReserva(idReserva);
             const data = await getAllReservas();
             setReservationInfo(data);
         } catch (error) {
