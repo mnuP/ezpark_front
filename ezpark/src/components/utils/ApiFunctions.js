@@ -12,7 +12,7 @@ export const getHeader = (isFormData = false) => {
         Authorization: `Bearer ${token}`
     };
     if (!isFormData) {
-        headers["Content-Type"] = "application/json";
+        headers["Content-Type"] = "multipart/form-data";
     } 
     //Cambio aqui
     return headers;
@@ -141,9 +141,8 @@ export const deleteParqueadero = async (parqueaderoId) => {
     }
 };
 
-export async function updateParqueadero(idAdministrador, nombre, idParqueadero) {
+export async function updateParqueadero(idParqueadero, nombre) {
     const formData = new FormData();
-    formData.append("idAdministrador", idAdministrador);
     formData.append("nombre", nombre);
     try {
         const response = await api.put(`http://localhost:9192/parqueaderos/update/${idParqueadero}`, formData, {

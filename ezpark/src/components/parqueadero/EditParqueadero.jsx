@@ -5,7 +5,7 @@ import { getParqueaderoById, updateParqueadero } from "../utils/ApiFunctions";
 const EditParqueadero = () => {
     const { parqueaderoId } = useParams();
     const [parqueadero, setParqueadero] = useState({
-        idAdministrador: "",
+        idParqueadero: "",
         nombre: ""
     });
     const [successMessage, setSuccessMessage] = useState("");
@@ -32,7 +32,7 @@ const EditParqueadero = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await updateParqueadero(parqueadero.idAdministrador, parqueadero.nombre);
+            const response = await updateParqueadero(parqueadero.idParqueadero, parqueadero.nombre);
             if (response) {
                 setSuccessMessage("Parqueadero actualizado exitosamente");
                 setErrorMessage("");
@@ -54,15 +54,15 @@ const EditParqueadero = () => {
                     {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
-                            <label htmlFor="idAdministrador" className="form-label">
+                            <label htmlFor="idParqueadero" className="form-label">
                                 ID del Administrador
                             </label>
                             <input
                                 type="text"
                                 className="form-control"
-                                id="idAdministrador"
-                                name="idAdministrador"
-                                value={parqueadero.idAdministrador}
+                                id="idParqueadero"
+                                name="idParqueadero"
+                                value={parqueadero.idParqueadero}
                                 onChange={handleInputChange}
                             />
                         </div>
