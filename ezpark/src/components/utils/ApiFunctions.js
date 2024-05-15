@@ -6,12 +6,15 @@ export const api = axios.create({
 });
 
 // Function to get the headers with the JWT token
-export const getHeader = () => {
+export const getHeader = (isFormData = false) => {
     const token = localStorage.getItem("token");
-    return {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
+    const headers = {
+        Authorization: `Bearer ${token}`
     };
+    if (!isFormData) {
+        headers["Content-Type"] = "application/json";
+    }
+    return headers;
 };
 
 // User registration
@@ -98,7 +101,9 @@ export async function addNewParqueadero(idAdministrador, nombre) {
     const formData = new FormData();
     formData.append("idAdministrador", idAdministrador);
     formData.append("nombre", nombre);
-    
+
+    console.log('FormData:', ...formData); // Log FormData to debug
+ 
     try {
         const response = await api.post("http://localhost:9192/parqueaderos/add/new-parqueadero", formData, {
             headers: getHeader()
@@ -112,6 +117,7 @@ export async function addNewParqueadero(idAdministrador, nombre) {
         throw new Error("Error de red: " + error.message);
     }
 }
+
 
 export const getAllParqueaderos = async () => {
     try {
