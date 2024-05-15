@@ -13,7 +13,8 @@ export const getHeader = (isFormData = false) => {
     };
     if (!isFormData) {
         headers["Content-Type"] = "application/json";
-    }
+    } 
+    //Cambio aqui
     return headers;
 };
 
