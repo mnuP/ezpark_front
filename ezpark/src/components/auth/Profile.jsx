@@ -9,7 +9,6 @@ const Profile = () => {
 		nombre:"",
         apellido:"",
         email:"",
-        roles: [{id:"",name:""}]
 	})
        
 	const [bookings, setBookings] = useState([])

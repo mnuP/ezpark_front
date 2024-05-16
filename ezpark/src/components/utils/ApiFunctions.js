@@ -34,7 +34,8 @@ export const loginUser = async (loginData) => {
     try {
         console.log(loginData);
         const response = await api.post(`http://localhost:9192/auth/login`, loginData);
-        console.log(response.data);
+        localStorage.setItem("idUsuario", response.data.id);
+        console.log(response.data.id);
         return response.data;
     } catch (error) {
         if (error.response) {
@@ -159,9 +160,21 @@ export const getParqueaderoById = async (idParqueadero) => {
         const response = await api.get(`http://localhost:9192/parqueaderos/parqueadero/${idParqueadero}`, {
             headers: getHeader()
         });
+        console.log(response.data.espacioResponses);
         return response.data;
     } catch (error) {
         throw error.response.data;
+    }
+};
+
+export const getEspaciosOfParqueaderoById = async (idParqueadero) => {
+    try {
+        const response = await api.get(`http://localhost:9192/parqueaderos/parqueadero/${idParqueadero}`, {
+            headers: getHeader()
+        });
+        return response.data.espacioResponses;
+    } catch (error) {
+        throw error.response.data.espacioResponses;
     }
 };
 
@@ -223,12 +236,22 @@ export const saveReserva = async (idEspacio, reservaData) => {
 };
 
 export const cancelReserva = async (idReserva) => {
+    console.log(idReserva)
     try {
         await api.delete(`http://localhost:9192/reservas/reserva/${idReserva}/delete`, {
             headers: getHeader()
         });
     } catch (error) {
-        throw error.response.data;
+        if (error.response) {
+            console.error('Server Error:', error.response.data);
+            throw new Error('Server Error');
+        } else if (error.request) {
+            console.error('No response received:', error.request);
+            throw new Error('No response received');
+        } else {
+            console.error('Request setup error:', error.message);
+            throw new Error('Request setup error');
+        }
     }
 };
 

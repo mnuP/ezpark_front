@@ -19,6 +19,7 @@ import Registration from "./components/auth/Registration"
 import Profile from "./components/auth/Profile"
 import { AuthProvider } from "./components/auth/AuthProvider"
 import RequireAuth from "./components/auth/RequireAuth"
+import EspacioListing from "./components/parqueadero/EspacioListing"
 
 
 
@@ -33,16 +34,19 @@ function App() {
 						<Route path="/edit-parqueadero/:roomId" element={<EditParqueadero/>} />
 						<Route path="/existing-parqueadero" element={<ExistingParqueaderos/>} />
 						<Route path="/add-parqueadero" element={<AddParqueadero />} />
-
 						<Route
-							path="/reserva-parqueadero/:parqueaderoId"
+							path="/reserva-parqueadero/:idParqueadero"
 							element={
-								<RequireAuth>
-									<Checkout />
-								</RequireAuth>
+								<EspacioListing />
+								/*<Checkout />*/							
 							}
 						/>
-
+						<Route
+							path="/reserva-espacio/:id"
+							element={
+								<Checkout />						
+							}
+						/>
 						<Route path="/browse-all-parking-spots" element={<ParqueaderoListing/>} />
 
 						<Route path="/admin" element={<Admin />} />

@@ -47,8 +47,8 @@ const ExistingParqueaderos = () => {
     const handleDelete = async (parqueaderoId) => {
         try {
             const result = await deleteParqueadero(parqueaderoId);
-            if (result === "") {
-                setSuccessMessage(`Parqueadero No ${parqueaderoId} fue eliminado`);
+            if (result !== "") {
+                setSuccessMessage(`Parqueadero con ID: ${parqueaderoId} fue eliminado`);
                 fetchParqueaderos();
             } else {
                 console.error(`Error eliminando parqueadero : ${result.message}`);
@@ -111,15 +111,15 @@ const ExistingParqueaderos = () => {
                                     </tr>
                                 )}
                                 {currentParqueaderos.map((parqueadero) => (
-                                    <tr key={parqueadero.id} className="text-center">
-                                        <td>{parqueadero.id}</td>
+                                    <tr key={parqueadero.idParqueadero} className="text-center">
+                                        <td>{parqueadero.idParqueadero}</td>
                                         <td>{parqueadero.idAdministrador}</td>
                                         <td>{parqueadero.nombre}</td>
                                         <td className="gap-2">
-                                            <Link to={`/edit-parqueadero/${parqueadero.id}`} className="btn btn-info btn-sm">
+                                            <Link to={`/edit-parqueadero/${parqueadero.idParqueadero}`} className="btn btn-info btn-sm">
                                                 <FaEdit />
                                             </Link>
-                                            <button className="btn btn-danger btn-sm ml-2" onClick={() => handleDelete(parqueadero.id)}>
+                                            <button className="btn btn-danger btn-sm ml-2" onClick={() => handleDelete(parqueadero.idParqueadero)}>
                                                 <FaTrashAlt />
                                             </button>
                                         </td>

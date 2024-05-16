@@ -71,9 +71,8 @@ const BuscarReserva = () => {
         try {
             await cancelReserva(reservationInfo.id)
             setIsDeleted(true)
-            setSuccessMessage("Reservation has been cancelled successfully!")
+            setSuccessMessage("Se cancelo la reserva")
             setReservationInfo(emptyReservationInfo)
-            setdia("")
             setError(null)
         } catch (error) {
             setError(error.message)

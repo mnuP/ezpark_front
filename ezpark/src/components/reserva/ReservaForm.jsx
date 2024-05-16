@@ -10,19 +10,18 @@ const ReservaForm = () => {
     const [validated, setValidated] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-    const [parkingSpacePrice, setParkingSpacePrice] = useState(0);
-
-    const currentUser = localStorage.getItem("userId");
+    const currentUser = localStorage.getItem("idUsuario");
+    const { id } = useParams()
 
     const [booking, setBooking] = useState({
-        customerName: "",
-        customerEmail: currentUser,
-        checkInDate: "",
-        checkOutDate: "",
-        vehiclePlateNumber: ""
+        idUsuario: currentUser,
+        idEspacio: id,
+        dia: "",
+        horaInicioReserva: "",
+        horaFinReserva: "",
+        matricula: ""
     });
 
-    const { spaceId } = useParams();
     const navigate = useNavigate();
 
     const handleInputChange = (e) => {
@@ -31,41 +30,11 @@ const ReservaForm = () => {
         setErrorMessage("");
     };
 
-    const getParkingSpacePriceById = async (spaceId) => {
-        try {
-            const response = await getParqueaderoById(spaceId); // Ajustar para obtener el precio de un espacio de estacionamiento
-            setParkingSpacePrice(response.price);
-        } catch (error) {
-            throw new Error(error);
-        }
-    };
-
-    useEffect(() => {
-        getParkingSpacePriceById(spaceId);
-    }, [spaceId]);
-
-    const calculatePayment = () => {
-        const checkInDate = moment(booking.checkInDate);
-        const checkOutDate = moment(booking.checkOutDate);
-        const diffInDays = checkOutDate.diff(checkInDate, "days");
-        const paymentPerDay = parkingSpacePrice ? parkingSpacePrice : 0;
-        return diffInDays * paymentPerDay;
-    };
-
-    const isCheckOutDateValid = () => {
-        if (!moment(booking.checkOutDate).isSameOrAfter(moment(booking.checkInDate))) {
-            setErrorMessage("La fecha de salida debe ser después de la fecha de entrada");
-            return false;
-        } else {
-            setErrorMessage("");
-            return true;
-        }
-    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const form = e.currentTarget;
-        if (form.checkValidity() === false || !isCheckOutDateValid()) {
+        if (form.checkValidity() === false) {
             e.stopPropagation();
         } else {
             setIsSubmitted(true);
@@ -75,43 +44,134 @@ const ReservaForm = () => {
 
     const handleFormSubmit = async () => {
         try {
-            const confirmationCode = await saveReserva(spaceId, booking); // Ajustar para reservar un espacio de estacionamiento
+            const confirmationCode = await saveReserva(id, booking);
+
             setIsSubmitted(true);
             navigate("/booking-success", { state: { message: confirmationCode } });
         } catch (error) {
+            alert("Horario no Disponible");
             const errorMessage = error.message;
             console.log(errorMessage);
-            navigate("/booking-success", { state: { error: errorMessage } });
         }
     };
 
     return (
         <>
-            <div className="container mb-5">
-                <div className="row">
-                    <div className="col-md-6">
-                        <div className="card card-body mt-5">
-                            <h4 className="card-title">Reserve Parking Space</h4>
+			<div className="container mb-5">
+				<div className="row">
+					<div className="col-md-6">
+						<div className="card card-body mt-5">
+							<h4 className="card-title">Reservar Parqueadero</h4>
 
-                            <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                                {}
-                            </Form>
-                        </div>
-                    </div>
+							<Form noValidate validated={validated} onSubmit={handleSubmit}>
+								
 
-                    <div className="col-md-4">
-                        {isSubmitted && (
-                            <BookingSummary
-                                booking={booking}
-                                payment={calculatePayment()}
-                                onConfirm={handleFormSubmit}
-                                isFormValid={validated}
-                            />
-                        )}
-                    </div>
-                </div>
-            </div>
-        </>
+								<fieldset style={{ border: "2px" }}>
+									<legend>Seleccione: </legend>
+									<div className="row">
+										<div className="col-6">
+											<Form.Label htmlFor="dia" className="hotel-color">
+												Dia de la Reserva
+											</Form.Label>
+											<FormControl
+												required
+												type="date"
+												id="dia"
+												name="dia"
+												value={booking.dia}
+												placeholder="DiaReserva"
+												min={moment().format("MMM Do, YYYY")}
+												onChange={handleInputChange}
+											/>
+											<Form.Control.Feedback type="invalid">
+												Selecciona un Dia para la reserva.
+											</Form.Control.Feedback>
+										</div>
+									</div>
+								</fieldset>
+
+								<fieldset style={{ border: "2px" }}>
+									<legend>Informacion de la Reserva</legend>
+									<div className="row">
+										<div className="col-6">
+											<Form.Label htmlFor="horaInicioReserva" className="hotel-color">
+												Hora de Inicio
+											</Form.Label>
+											<FormControl
+												required
+												type="number"
+												id="horaInicioReserva"
+												name="horaInicioReserva"
+												value={booking.horaInicioReserva}
+												min={5}
+												placeholder="0"
+												onChange={handleInputChange}
+											/>
+											<Form.Control.Feedback type="invalid">
+												Hora minima: 5am.
+											</Form.Control.Feedback>
+										</div>
+										<div className="col-6">
+											<Form.Label htmlFor="horaFinReserva" className="hotel-color">
+												Hora de Fin
+											</Form.Label>
+											<FormControl
+												required
+												type="number"
+												id="horaFinReserva"
+												name="horaFinReserva"
+												value={booking.horaFinReserva}
+												placeholder="0"
+												min={6}
+                                                max={21}
+												onChange={handleInputChange}
+											/>
+											<Form.Control.Feedback type="invalid">
+												Seleccione una hora entre las 6 y 21 horas
+											</Form.Control.Feedback>
+										</div>
+                                        <div className="col-6">
+											<Form.Label htmlFor="matricula" className="hotel-color">
+												matricula del vehiculo
+											</Form.Label>
+											<FormControl
+												required
+												type="text"
+												id="matricula"
+												name="matricula"
+												value={booking.matricula}
+												min={5}
+												placeholder="AAA000"
+												onChange={handleInputChange}
+											/>
+											<Form.Control.Feedback type="invalid">
+												Hora minima: 5am.
+											</Form.Control.Feedback>
+										</div>
+									</div>
+								</fieldset>
+
+								<div className="fom-group mt-2 mb-2">
+									<button type="submit" className="btn btn-hotel">
+										Continuar
+									</button>
+								</div>
+							</Form>
+						</div>
+					</div>
+
+					<div className="col-md-4">
+						{isSubmitted && (
+							<BookingSummary
+								booking={booking}
+								onConfirm={handleFormSubmit}
+								isFormValid={validated}
+							/>
+						)}
+					</div>
+				</div>
+			</div>
+		</>
     );
 };
 
