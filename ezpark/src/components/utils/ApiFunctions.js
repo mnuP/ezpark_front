@@ -160,7 +160,7 @@ export async function getParqueaderoById(idParqueadero) {
 		const result = await api.get(`http://localhost:9192/parqueaderos/parqueadero/${idParqueadero}`)
 		return result.data
 	} catch (error) {
-		throw new Error(`Error fetching room ${error.message}`)
+		throw new Error(`Error fetching park ${error.message}`)
 	}
 }
 

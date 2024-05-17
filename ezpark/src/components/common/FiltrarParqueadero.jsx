@@ -20,7 +20,7 @@ const FiltrarParqueadero = ({ data, setFilteredData }) => {
 
     return (
         <div className="input-group mb-3">
-            <span className="input-group-text" id="room-type-filter">
+            <span className="input-group-text" id="park-type-filter">
                 Filtrar parqueaderos por nombre
             </span>
             <input
@@ -30,7 +30,7 @@ const FiltrarParqueadero = ({ data, setFilteredData }) => {
                 value={filter}
                 onChange={handleInputChange}
             />
-            <button className="btn btn-hotel" type="button" onClick={clearFilter}>
+            <button className="btn btn-park" type="button" onClick={clearFilter}>
                 Limpiar Filtro
             </button>
         </div>

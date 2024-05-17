@@ -70,7 +70,7 @@ const ReservaForm = () => {
 									<legend>Seleccione: </legend>
 									<div className="row">
 										<div className="col-6">
-											<Form.Label htmlFor="dia" className="hotel-color">
+											<Form.Label htmlFor="dia" className="park-color">
 												Dia de la Reserva
 											</Form.Label>
 											<FormControl
@@ -94,7 +94,7 @@ const ReservaForm = () => {
 									<legend>Informacion de la Reserva</legend>
 									<div className="row">
 										<div className="col-6">
-											<Form.Label htmlFor="horaInicioReserva" className="hotel-color">
+											<Form.Label htmlFor="horaInicioReserva" className="park-color">
 												Hora de Inicio
 											</Form.Label>
 											<FormControl
@@ -112,7 +112,7 @@ const ReservaForm = () => {
 											</Form.Control.Feedback>
 										</div>
 										<div className="col-6">
-											<Form.Label htmlFor="horaFinReserva" className="hotel-color">
+											<Form.Label htmlFor="horaFinReserva" className="park-color">
 												Hora de Fin
 											</Form.Label>
 											<FormControl
@@ -131,7 +131,7 @@ const ReservaForm = () => {
 											</Form.Control.Feedback>
 										</div>
                                         <div className="col-6">
-											<Form.Label htmlFor="matricula" className="hotel-color">
+											<Form.Label htmlFor="matricula" className="park-color">
 												matricula del vehiculo
 											</Form.Label>
 											<FormControl
@@ -152,7 +152,7 @@ const ReservaForm = () => {
 								</fieldset>
 
 								<div className="fom-group mt-2 mb-2">
-									<button type="submit" className="btn btn-hotel">
+									<button type="submit" className="btn btn-park">
 										Continuar
 									</button>
 								</div>

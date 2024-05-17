@@ -6,7 +6,7 @@ const MainHeader = () => {
 			<div className="overlay"></div>
 			<div className="animated-texts overlay-content">
 				<h1>
-					Bienvenido a <span className="hotel-color"> EzParking</span>
+					Bienvenido a <span className="park-color"> EzParking</span>
 				</h1>
 				<h4>La mejor experiencia de parqueo</h4>
 			</div>

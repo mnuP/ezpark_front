@@ -99,7 +99,7 @@ const BuscarReserva = () => {
                         placeholder="Ingrese el código de la reserva"
                     />
 
-                    <button type="submit" className="btn btn-hotel input-group-text">
+                    <button type="submit" className="btn btn-park input-group-text">
                         Buscar Reserva
                     </button>
                 </div>

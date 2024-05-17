@@ -28,7 +28,7 @@ const Parqueadero = () => {
     }, []);
 
     if (isLoading) {
-        return <div>Loading parqueaderos...</div>;
+        return <div>Cargando parqueaderos...</div>;
     }
     if (error) {
         return <div className="text-danger">Error: {error}</div>;

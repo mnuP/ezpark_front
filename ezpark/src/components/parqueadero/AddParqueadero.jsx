@@ -42,7 +42,7 @@ const AddParqueadero = () => {
             <section className="container mt-5 mb-5">
                 <div className="row justify-content-center">
                     <div className="col-md-8 col-lg-6">
-                        <h2 className="mt-5 mb-2">Add a New Parqueadero</h2>
+                        <h2 className="mt-5 mb-2">Agregar nuevo Parqueadero</h2>
                         {successMessage && (
                             <div className="alert alert-success fade show">{successMessage}</div>
                         )}
@@ -80,10 +80,10 @@ const AddParqueadero = () => {
                             </div>
                             <div className="d-grid gap-2 d-md-flex mt-2">
                                 <Link to={"/existing-parqueadero"} className="btn btn-outline-info">
-                                    Existing Parqueaderos
+                                    Parqueaderos existentes
                                 </Link>
                                 <button type="submit" className="btn btn-outline-primary ml-5">
-                                    Save Parqueadero
+                                    Guardar Parqueadero
                                 </button>
                             </div>
                         </form>

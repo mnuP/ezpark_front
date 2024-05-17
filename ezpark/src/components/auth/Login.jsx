@@ -72,7 +72,7 @@ const Login = () => {
 				</div>
 
 				<div className="mb-3">
-					<button type="submit" className="btn btn-hotel" style={{ marginRight: "10px" }}>
+					<button type="submit" className="btn btn-park" style={{ marginRight: "10px" }}>
 						Iniciar Sesión
 					</button>
 					<span style={{ marginLeft: "10px" }}>

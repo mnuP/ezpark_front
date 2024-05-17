@@ -41,7 +41,7 @@ const Checkout = () => {
 								<table className="table table-bordered">
 									<tbody>
 										<tr>
-											<th>Type:</th>
+											<th>Tipo:</th>
 											<td>{espacioInfo.tipo}</td>
 										</tr>
 										<tr>

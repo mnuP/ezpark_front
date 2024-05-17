@@ -13,7 +13,7 @@ const ReservaSummary = ({booking, onConfirm}) => {
         <div className="row">
             <div className="col-md-6"></div>
             <div className="card card-body mt-5">
-                <h4 className="card-title hotel-color">Procesando reserva... </h4>
+                <h4 className="card-title park-color">Procesando reserva... </h4>
                 <p>
                     Usuario: <strong>{booking.idUsuario}</strong>
                 </p>

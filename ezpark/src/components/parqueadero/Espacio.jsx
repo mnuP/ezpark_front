@@ -29,7 +29,7 @@ const Espacio = ({ idParqueadero }) => {
     }, []);
 
     if (isLoading) {
-        return <div>Loading espacios...</div>;
+        return <div>Cargando espacios...</div>;
     }
     if (error) {
         return <div className="text-danger">Error: {error}</div>;
