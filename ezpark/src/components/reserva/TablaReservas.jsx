@@ -36,8 +36,7 @@ const TablaReservas = ({ reservationInfo, handleReservationCancellation }) => {
                         <th>Fecha de Entrada</th>
                         <th>Fecha de Salida</th>
                         <th>Placa</th>
-                        <th>Nombre</th>
-                        <th>Email</th>
+                        
                         <th>Acción</th>
                     </tr>
                 </thead>
@@ -46,11 +45,10 @@ const TablaReservas = ({ reservationInfo, handleReservationCancellation }) => {
                         <tr key={reservation.id}>
                             <td>{index + 1}</td>
                             <td>{reservation.id}</td>
-                            <td>{reservation.checkInDate}</td>
-                            <td>{reservation.checkOutDate}</td>
-                            <td>{reservation.vehiclePlate}</td>
-                            <td>{reservation.guestName}</td>
-                            <td>{reservation.guestEmail}</td>
+                            <td>{reservation.horaInicio}</td>
+                            <td>{reservation.horaFin}</td>
+                            <td>{reservation.matriculaVehiculo}</td>
+                            
                             <td>
                                 <button
                                     className="btn btn-danger btn-sm"

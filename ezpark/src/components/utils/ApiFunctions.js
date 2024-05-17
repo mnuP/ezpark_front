@@ -146,7 +146,7 @@ export async function updateParqueadero(idParqueadero, nombre) {
     const formData = new FormData();
     formData.append("nombre", nombre);
     try {
-        const response = await api.put(`http://localhost:9192/parqueaderos/update/${idParqueadero}`, formData, {
+        const response = await axios.put(`http://localhost:9192/parqueaderos/update/${idParqueadero}`, formData, {
             headers: getHeader()
         });
         return response.data;
@@ -155,17 +155,14 @@ export async function updateParqueadero(idParqueadero, nombre) {
     }
 }
 
-export const getParqueaderoById = async (idParqueadero) => {
-    try {
-        const response = await api.get(`http://localhost:9192/parqueaderos/parqueadero/${idParqueadero}`, {
-            headers: getHeader()
-        });
-        console.log(response.data.espacioResponses);
-        return response.data;
-    } catch (error) {
-        throw error.response.data;
-    }
-};
+export async function getParqueaderoById(idParqueadero) {
+	try {
+		const result = await api.get(`http://localhost:9192/parqueaderos/parqueadero/${idParqueadero}`)
+		return result.data
+	} catch (error) {
+		throw new Error(`Error fetching room ${error.message}`)
+	}
+}
 
 export const getEspaciosOfParqueaderoById = async (idParqueadero) => {
     try {
@@ -179,9 +176,13 @@ export const getEspaciosOfParqueaderoById = async (idParqueadero) => {
 };
 
 // Space-related functions
-export const addNewEspacio = async (espacioData) => {
+export const addNewEspacio = async (tipo, idParqueadero) => {
+    const formData = new FormData();
+    formData.append("tipo", tipo);
+    formData.append("parqueadero", idParqueadero);
+
     try {
-        const response = await api.post(`http://localhost:9192/espacios/add/new-espacio`, espacioData, {
+        const response = await api.post("http://localhost:9192/espacios/add/new-espacio", formData, {
             headers: getHeader()
         });
         return response.data;

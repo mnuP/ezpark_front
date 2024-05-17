@@ -45,9 +45,7 @@ const ParqueaderosCarrusel = () => {
                                             <Card.Body>
                                                 <Card.Title className="park-color">{parqueadero.nombre}</Card.Title>
                                                 <div className="flex-shrink-0">
-                                                    <Link to={`/book-parqueadero/${parqueadero.id}`} className="btn btn-park btn-sm">
-                                                        Reservar ahora
-                                                    </Link>
+                                                    
                                                 </div>
                                             </Card.Body>
                                         </Card>

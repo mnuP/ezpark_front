@@ -3,7 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import { getParqueaderoById, updateParqueadero } from "../utils/ApiFunctions";
 
 const EditParqueadero = () => {
-    const { parqueaderoId } = useParams();
+    const { idParqueadero } = useParams();
+    console.log(idParqueadero)
     const [parqueadero, setParqueadero] = useState({
         idParqueadero: "",
         nombre: ""
@@ -14,7 +15,7 @@ const EditParqueadero = () => {
     useEffect(() => {
         const fetchParqueaderoData = async () => {
             try {
-                const parqueaderoData = await getParqueaderoById(parqueaderoId);
+                const parqueaderoData = await getParqueaderoById(idParqueadero);
                 setParqueadero(parqueaderoData);
             } catch (error) {
                 console.error(error);
@@ -22,7 +23,7 @@ const EditParqueadero = () => {
         };
 
         fetchParqueaderoData();
-    }, [parqueaderoId]);
+    }, [idParqueadero]);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -55,7 +56,7 @@ const EditParqueadero = () => {
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <label htmlFor="idParqueadero" className="form-label">
-                                ID del Administrador
+                               Id Parqueadero
                             </label>
                             <input
                                 type="text"
@@ -80,8 +81,11 @@ const EditParqueadero = () => {
                             />
                         </div>
                         <div className="d-grid gap-2 d-md-flex mt-2">
-                            <Link to={"/existing-parqueaderos"} className="btn btn-outline-info ml-5">
+                            <Link to={"/existing-parqueadero"} className="btn btn-outline-info ml-5">
                                 Regresar
+                            </Link>
+                            <Link to={`/add-espacio/${idParqueadero}`} className="btn btn-outline-info ml-5">
+                                Añadir Espacio
                             </Link>
                             <button type="submit" className="btn btn-outline-warning">
                                 Editar Parqueadero
