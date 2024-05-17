@@ -53,11 +53,11 @@ body {
 
  .btn-park{
   background-color: rgb(0, 191, 244);
-  color: #a6a6a6;
+  color: #000000;
   }
   .btn-park:hover{
   background-color: rgb(102, 125, 164);
-  color: #8e8e8e;
+  color: #000000;
   transition: 0.7s;
   outline-color: transparent;
   outline-style:solid;
@@ -65,7 +65,7 @@ body {
   }
 
   .park-color{
-    color: rgb(169, 77, 123);
+    color: rgb(25, 0, 255);
   }
   .park-price{
     color:darkgoldenrod;
