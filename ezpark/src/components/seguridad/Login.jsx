@@ -27,7 +27,7 @@ const Login = () => {
 			auth.handleLogin(token)
 			navigate(redirectUrl, { replace: true })
 		} else {
-			setErrorMessage("Invalid username or contraseña. Please try again.")
+			setErrorMessage("Usuario o contraseña inválidos. Intente de nuevo.")
 		}
 		setTimeout(() => {
 			setErrorMessage("")

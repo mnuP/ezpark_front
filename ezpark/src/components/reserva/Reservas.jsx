@@ -34,7 +34,7 @@ const ParkingReservations = () => {
 
     return (
         <section style={{ backgroundColor: "whitesmoke" }}>
-            <Header title={"Parking Reservations"} />
+            <Header title={"Reservas de parqueo"} />
             {error && <div className="text-danger">{error}</div>}
             {isLoading ? (
                 <div>Cargando Reservas</div>

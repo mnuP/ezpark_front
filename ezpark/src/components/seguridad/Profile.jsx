@@ -25,7 +25,7 @@ const Profile = () => {
 				const userData = await getUserByEmail(userId, token)
 				setUser(userData)
 			} catch (error) {
-				setErrorMessage("Error fetching user data.")
+				setErrorMessage("Error al recuperar los datos del usuario.")
 				console.error(error)
 			}
 		}
@@ -39,7 +39,7 @@ const Profile = () => {
 				const response = await getAllReservas(userId, token)
 				setBookings(response)
 			} catch (error) {
-				setErrorMessage("Error fetching booking data.")
+				setErrorMessage("Error al recuperar los datos de las reservas.")
 				console.error(error)
 			}
 		}
@@ -49,7 +49,7 @@ const Profile = () => {
 
 	const handleDeleteAccount = async () => {
 		const confirmed = window.confirm(
-			"Are you sure you want to delete your account? This action cannot be undone."
+			"¿Estás seguro de querer eliminar tu cuenta? Esta acción no se puede deshacer."
 		)
 		if (confirmed) {
 			await deleteUser(userId)
@@ -62,7 +62,7 @@ const Profile = () => {
 				window.location.reload()
 			})
 			.catch((error) => {
-				setErrorMessage("Error deleting user account.")
+				setErrorMessage("Error eliminando la cuenta.")
 				console.error(error)
 			})
 		}

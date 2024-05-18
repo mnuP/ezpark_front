@@ -23,11 +23,11 @@ const AddParqueadero = () => {
         try {
             const response = await addNewParqueadero(newParqueadero.idAdministrador, newParqueadero.nombre);
             if (response !== undefined) {
-                setSuccessMessage("A new parqueadero was added successfully!");
+                setSuccessMessage("parqueadero añadido exitosamente!");
                 setNewParqueadero({ idAdministrador: "", nombre: "" });
                 setErrorMessage("");
             } else {
-                setErrorMessage("Error adding new parqueadero");
+                setErrorMessage("Error añadiendo parqueadero");
             }
         } catch (error) {
             setErrorMessage(error.message);

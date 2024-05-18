@@ -70,7 +70,7 @@ const ReservaForm = () => {
 									<div className="row">
 										<div className="col-6">
 											<Form.Label htmlFor="dia" className="park-color">
-												Dia de la Reserva
+												Día de la Reserva
 											</Form.Label>
 											<FormControl
 												required
@@ -144,7 +144,7 @@ const ReservaForm = () => {
 												onChange={handleInputChange}
 											/>
 											<Form.Control.Feedback type="invalid">
-												Hora minima: 5am.
+												Hora mínima: 5am.
 											</Form.Control.Feedback>
 										</div>
 									</div>

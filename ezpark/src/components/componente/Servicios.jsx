@@ -15,7 +15,7 @@ const Servicios = () => {
 	return (
 		<>
 			<div className="mb-2">
-				<Header title={"Parking Services"} />
+				<Header title={"Servicios de parqueo"} />
 
 				<Row className="mt-4">
 					<h4 className="text-center">

@@ -23,11 +23,11 @@ const AddEspacio = () => {
         try {
             const response = await addNewEspacio(newEspacio.tipo, newEspacio.idParqueadero)
             if (response) {
-                setSuccessMessage("A new space was added successfully!")
+                setSuccessMessage("Nuevo espacio añadido exitosamente!")
                 setNewEspacio({ tipo: "", idParqueadero: idParqueadero })
                 setErrorMessage("")
             } else {
-                setErrorMessage("Error adding new space")
+                setErrorMessage("Error añadiendo espacio")
             }
         } catch (error) {
             setErrorMessage(error.message)
