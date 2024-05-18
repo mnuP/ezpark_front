@@ -21,3 +21,5 @@ EXPOSE 5173
 
 # Comando para iniciar la aplicación
 CMD [ "npm", "run", "serve" ]
+
+#sapo perro hp
