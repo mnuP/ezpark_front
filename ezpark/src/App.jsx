@@ -7,19 +7,19 @@ import Home from "./components/home/Home"
 import EditParqueadero from "./components/parqueadero/EditParqueadero"
 import AddParqueadero from "./components/parqueadero/AddParqueadero"
 import AddEspacio from "./components/parqueadero/AddEspacio"
-import NavBar from "./components/layout/NavBar"
-import Footer from "./components/layout/Footer"
+import NavBar from "./components/pagina/NavBar"
+import Footer from "./components/pagina/Footer"
 import ParqueaderoListing from "./components/parqueadero/ParqueaderoListing"
 import Admin from "./components/admin/Admin"
 import Checkout from "./components/reserva/Checkout"
 import ReservaSuccess from "./components/reserva/ReservaSuccess"
 import Reservas from "./components/reserva/Reservas"
 import BuscarReserva from "./components/reserva/BuscarReserva"
-import Login from "./components/auth/Login"
-import Registration from "./components/auth/Registration"
-import Profile from "./components/auth/Profile"
-import { AuthProvider } from "./components/auth/AuthProvider"
-import RequireAuth from "./components/auth/RequireAuth"
+import Login from "./components/seguridad/Login"
+import Registration from "./components/seguridad/Registration"
+import Profile from "./components/seguridad/Profile"
+import { AuthProvider } from "./components/seguridad/AuthProvider"
+import RequireAuth from "./components/seguridad/RequireAuth"
 import EspacioListing from "./components/parqueadero/EspacioListing"
 
 
@@ -53,7 +53,7 @@ function App() {
 						<Route path="/browse-all-parking-spots" element={<ParqueaderoListing/>} />
 
 						<Route path="/admin" element={<Admin />} />
-						<Route path="/Reserva-success" element={<ReservaSuccess />} />
+						<Route path="/reserva-exitosa" element={<ReservaSuccess />} />
 						<Route path="/existing-bookings" element={<Reservas />} />
 						<Route path="/find-booking" element={<BuscarReserva />} />
 

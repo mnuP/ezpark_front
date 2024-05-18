@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { addNewParqueadero } from "../utils/ApiFunctions";
+import { addNewParqueadero } from "../api/ApiFunctions";
 import { Link } from "react-router-dom";
 
 const AddParqueadero = () => {
+    const currentUser = localStorage.getItem("idUsuario");
     const [newParqueadero, setNewParqueadero] = useState({
-        idAdministrador: "",
+        idAdministrador: currentUser,
         nombre: ""
     });
 
@@ -52,17 +53,9 @@ const AddParqueadero = () => {
                         <form onSubmit={handleSubmit}>
                             <div className="mb-3">
                                 <label htmlFor="idAdministrador" className="form-label">
-                                    ID Administrador
+                                    ID Administrador:
                                 </label>
-                                <input
-                                    required
-                                    type="text"
-                                    className="form-control"
-                                    id="idAdministrador"
-                                    name="idAdministrador"
-                                    value={newParqueadero.idAdministrador}
-                                    onChange={handleInputChange}
-                                />
+                                <div>{currentUser}</div>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="nombre" className="form-label">

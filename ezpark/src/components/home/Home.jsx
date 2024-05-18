@@ -1,11 +1,11 @@
 import React from "react";
-import MainHeader from "../layout/MainHeader";
-import Parallax from "../common/Parallax";
-import EspacioSearch from "../common/ParqueaderoSearch";
+import MainHeader from "../pagina/MainHeader";
+import Parallax from "../componente/Parallax";
+import EspacioSearch from "../componente/ParqueaderoSearch";
 import { useLocation } from "react-router-dom";
-import { useAuth } from "../auth/AuthProvider";
-import Servicios from "../common/Servicios";
-import ParqueaderosCarrusel from "../common/ParqueaderosCarrusel";
+import { useAuth } from "../seguridad/AuthProvider";
+import Servicios from "../componente/Servicios";
+import ParqueaderosCarrusel from "../componente/ParqueaderosCarrusel";
 
 const Home = () => {
   const location = useLocation();

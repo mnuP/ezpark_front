@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { cancelReserva, getAllReservas } from "../utils/ApiFunctions";
-import Header from "../common/Header";
+import { cancelReserva, getAllReservas } from "../api/ApiFunctions";
+import Header from "../componente/Header";
 import TablaReservas from "./TablaReservas";
 
 const ParkingReservations = () => {

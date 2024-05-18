@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getAllParqueaderos } from "../utils/ApiFunctions";
+import { getAllParqueaderos } from "../api/ApiFunctions";
 import ParqueaderoCard from "./ParqueaderoCard";
 import { Col, Container, Row } from "react-bootstrap";
-import FiltrarParqueadero from "../common/FiltrarParqueadero";
-import ParqueaderoPaginator from "../common/ParqueaderoPaginator";
+import FiltrarParqueadero from "../componente/FiltrarParqueadero";
+import ParqueaderoPaginator from "../componente/ParqueaderoPaginator";
 
 const Parqueadero = () => {
     const [data, setData] = useState([]);

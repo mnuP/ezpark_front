@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getParqueaderoById, updateParqueadero } from "../utils/ApiFunctions";
+import { getParqueaderoById, updateParqueadero } from "../api/ApiFunctions";
 
 const EditParqueadero = () => {
     const { idParqueadero } = useParams();
@@ -56,16 +56,11 @@ const EditParqueadero = () => {
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <label htmlFor="idParqueadero" className="form-label">
-                               Id Parqueadero
+                               Id Parqueadero:
                             </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="idParqueadero"
-                                name="idParqueadero"
-                                value={parqueadero.idParqueadero}
-                                onChange={handleInputChange}
-                            />
+                            <div>
+                                {parqueadero.idParqueadero}
+                            </div>
                         </div>
                         <div className="mb-3">
                             <label htmlFor="nombre" className="form-label">

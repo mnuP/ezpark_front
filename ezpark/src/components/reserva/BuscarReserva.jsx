@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import moment from "moment"
-import { cancelReserva, saveReserva , getReservaById} from "../utils/ApiFunctions"
+import { cancelReserva, saveReserva , getReservaById} from "../api/ApiFunctions"
 
 const BuscarReserva = () => {
     const [idState, setIdState] = useState("")

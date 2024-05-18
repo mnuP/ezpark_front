@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllParqueaderos } from "../utils/ApiFunctions";
+import { getAllParqueaderos } from "../api/ApiFunctions";
 import { Link } from "react-router-dom";
 import { Card, Carousel, Col, Container, Row } from "react-bootstrap";
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getAvailableSpaceTypes } from "../utils/ApiFunctions";
+import { getAvailableSpaceTypes } from "../api/ApiFunctions";
 
 const ParqueaderoTypeSelector = ({ handleSpaceInputChange, newSpace }) => {
     const [spaceType, setSpaceType] = useState("");

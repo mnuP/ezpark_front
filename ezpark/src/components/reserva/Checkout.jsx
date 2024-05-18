@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react"
 import ReservaForm from "../reserva/ReservaForm"
 import { AiFillCar } from "react-icons/ai"
 import { useParams } from "react-router-dom"
-import { getEspacioById } from "../utils/ApiFunctions"
-import ParqueaderosCarrusel from "../common/ParqueaderosCarrusel"
+import { getEspacioById } from "../api/ApiFunctions"
+import ParqueaderosCarrusel from "../componente/ParqueaderosCarrusel"
 
 const Checkout = () => {
     const [error, setError] = useState(null)

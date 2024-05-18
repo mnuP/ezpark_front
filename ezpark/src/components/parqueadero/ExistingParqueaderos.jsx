@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { deleteParqueadero, getAllParqueaderos } from "../utils/ApiFunctions";
+import { deleteParqueadero, getAllParqueaderos } from "../api/ApiFunctions";
 import { Col, Row } from "react-bootstrap";
-import FiltrarParqueadero from "../common/FiltrarParqueadero";
-import ParqueaderoPaginator from "../common/ParqueaderoPaginator";
+import FiltrarParqueadero from "../componente/FiltrarParqueadero";
+import ParqueaderoPaginator from "../componente/ParqueaderoPaginator";
 import { FaEdit, FaEye, FaPlus, FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 

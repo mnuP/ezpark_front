@@ -1,6 +1,6 @@
 import { parseISO } from "date-fns";
 import React, { useState, useEffect } from "react";
-import DateSlider from "../common/SliderFecha";
+import DateSlider from "../componente/SliderFecha";
 
 const TablaReservas = ({ reservationInfo, handleReservationCancellation }) => {
     const [filteredReservations, setFilteredReservations] = useState(reservationInfo);

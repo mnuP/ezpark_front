@@ -1,6 +1,6 @@
 import React, { useState} from "react"
 import { Link, useParams } from "react-router-dom";
-import { addNewEspacio } from "../utils/ApiFunctions"
+import { addNewEspacio } from "../api/ApiFunctions"
 
 
 const AddEspacio = () => {

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import EspacioCard from "./EspacioCard";
-import { getEspaciosOfParqueaderoById } from "../utils/ApiFunctions";
+import { getEspaciosOfParqueaderoById } from "../api/ApiFunctions";
 import { Col, Container, Row } from "react-bootstrap";
-import ParqueaderoPaginator from "../common/ParqueaderoPaginator";
-import FiltrarParqueadero from "../common/FiltrarParqueadero";
+import ParqueaderoPaginator from "../componente/ParqueaderoPaginator";
+import FiltrarParqueadero from "../componente/FiltrarParqueadero";
 
 const Espacio = ({ idParqueadero }) => {
     const [data, setData] = useState([]);

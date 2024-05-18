@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { Form, FormControl, Button } from "react-bootstrap";
 import BookingSummary from "./ReservaSummary";
-import { saveReserva, getParqueaderoById } from "../utils/ApiFunctions";
+import { saveReserva, getParqueaderoById } from "../api/ApiFunctions";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAuth } from "../auth/AuthProvider";
+import { useAuth } from "../seguridad/AuthProvider";
 
 const ReservaForm = () => {
     const [validated, setValidated] = useState(false);
@@ -45,9 +45,8 @@ const ReservaForm = () => {
     const handleFormSubmit = async () => {
         try {
             const confirmationCode = await saveReserva(id, booking);
-
             setIsSubmitted(true);
-            navigate("/booking-success", { state: { message: confirmationCode } });
+            navigate("/reserva-exitosa", { state: { message: confirmationCode } });
         } catch (error) {
             alert("Horario no Disponible");
             const errorMessage = error.message;
