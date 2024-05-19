@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { 
-    getEspaciosOfParqueaderoById, 
+import {  
     getAllParqueaderos, 
     getAllEspacios, 
 } from '../api/ApiFunctions';
-import './Reportes.css';
 
 const Reportes = () => {
     const [parqueaderos, setParqueaderos] = useState([]);

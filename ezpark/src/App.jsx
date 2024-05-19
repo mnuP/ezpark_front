@@ -19,9 +19,8 @@ import Login from "./components/seguridad/Login"
 import Registration from "./components/seguridad/Registration"
 import Profile from "./components/seguridad/Profile"
 import { AuthProvider } from "./components/seguridad/AuthProvider"
-import RequireAuth from "./components/seguridad/RequireAuth"
 import EspacioListing from "./components/parqueadero/EspacioListing"
-import Reportes from "./components/admin/Reportes"
+import Reportes from "./components/componente/Reportes"
 
 
 

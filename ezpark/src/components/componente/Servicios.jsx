@@ -1,14 +1,8 @@
 import React from "react"
-import { Container, Row, Col, Card } from "react-bootstrap"
+import { Row } from "react-bootstrap"
 import Header from "./Header"
 import {
 	FaClock,
-	FaCocktail,
-	FaParking,
-	FaSnowflake,
-	FaTshirt,
-	FaUtensils,
-	FaWifi
 } from "react-icons/fa"
 
 const Servicios = () => {

@@ -1,9 +1,7 @@
 import React from "react";
 import MainHeader from "../pagina/MainHeader";
 import Parallax from "../componente/Parallax";
-import EspacioSearch from "../componente/ParqueaderoSearch";
 import { useLocation } from "react-router-dom";
-import { useAuth } from "../seguridad/AuthProvider";
 import Servicios from "../componente/Servicios";
 import ParqueaderosCarrusel from "../componente/ParqueaderosCarrusel";
 

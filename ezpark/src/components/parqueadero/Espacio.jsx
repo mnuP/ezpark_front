@@ -3,7 +3,6 @@ import EspacioCard from "./EspacioCard";
 import { getEspaciosOfParqueaderoById } from "../api/ApiFunctions";
 import { Col, Container, Row } from "react-bootstrap";
 import ParqueaderoPaginator from "../componente/ParqueaderoPaginator";
-import FiltrarParqueadero from "../componente/FiltrarParqueadero";
 
 const Espacio = ({ idParqueadero }) => {
     const [data, setData] = useState([]);
