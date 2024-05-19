@@ -21,6 +21,7 @@ import Profile from "./components/seguridad/Profile"
 import { AuthProvider } from "./components/seguridad/AuthProvider"
 import RequireAuth from "./components/seguridad/RequireAuth"
 import EspacioListing from "./components/parqueadero/EspacioListing"
+import Reportes from "./components/admin/Reportes"
 
 
 
@@ -63,6 +64,7 @@ function App() {
 
 						<Route path="/profile" element={<Profile />} />
 						<Route path="/logout" element={<BuscarReserva />} />
+						<Route path="/reports" element={<Reportes />} />
 					</Routes>
 				</Router>
 				<Footer />

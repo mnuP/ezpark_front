@@ -12,7 +12,7 @@ const ParqueaderoCard = ({ parqueadero }) => {
                         <Link to={`/book-parqueadero/${parqueadero.idParqueadero}`}>
                             <Card.Img
                                 variant="top"
-                                src={`data:image/png;base64, ${imagenParqueadero}`}
+                                src={imagenParqueadero} 
                                 alt="Parqueadero Photo"
                                 style={{ width: "100%", maxWidth: "200px", height: "auto" }}
                             />

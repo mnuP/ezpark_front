@@ -3,31 +3,11 @@ import React, { useState, useEffect } from "react";
 import DateSlider from "../componente/SliderFecha";
 
 const TablaReservas = ({ reservationInfo, handleReservationCancellation }) => {
-    const [filteredReservations, setFilteredReservations] = useState(reservationInfo);
+    const [reservas, setReservas] = useState(reservationInfo);
 
-    const filterReservations = (startDate, endDate) => {
-        let filtered = reservationInfo;
-        if (startDate && endDate) {
-            filtered = reservationInfo.filter((reservation) => {
-                const reservationStartDate = parseISO(reservation.checkInDate);
-                const reservationEndDate = parseISO(reservation.checkOutDate);
-                return (
-                    reservationStartDate >= startDate &&
-                    reservationEndDate <= endDate &&
-                    reservationEndDate > startDate
-                );
-            });
-        }
-        setFilteredReservations(filtered);
-    };
-
-    useEffect(() => {
-        setFilteredReservations(reservationInfo);
-    }, [reservationInfo]);
 
     return (
         <section className="p-4">
-            <DateSlider onDateChange={filterReservations} onFilterChange={filterReservations} />
             <table className="table table-bordered table-hover shadow">
                 <thead>
                     <tr>
@@ -41,7 +21,7 @@ const TablaReservas = ({ reservationInfo, handleReservationCancellation }) => {
                     </tr>
                 </thead>
                 <tbody className="text-center">
-                    {filteredReservations.map((reservation, index) => (
+                    {reservas.map((reservation, index) => (
                         <tr key={reservation.id}>
                             <td>{index + 1}</td>
                             <td>{reservation.id}</td>
@@ -60,7 +40,7 @@ const TablaReservas = ({ reservationInfo, handleReservationCancellation }) => {
                     ))}
                 </tbody>
             </table>
-            {filteredReservations.length === 0 && <p>Reservas no encontradas para la fecha seleccionada</p>}
+            {reservas.length === 0 && <p>Reservas no encontradas para la fecha seleccionada</p>}
         </section>
     );
 };

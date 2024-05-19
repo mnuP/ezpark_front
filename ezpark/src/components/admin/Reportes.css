@@ -1,0 +1,14 @@
+.reportes-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.reportes-table th, .reportes-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.reportes-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
